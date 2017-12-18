@@ -1,5 +1,5 @@
 ## WPT Rebrandly URL Shortener
-WPT Rebrandly URL Shortener is an extension for the popular WordPress plugin, Wp to Twitter by Joe Dolson [http://joedolson.com]. The extension adds Rebrandly.com URL shortening, with an option to use a custom domain, if you have one registered with Rebrandly.
+WPT Rebrandly URL Shortener is an extension for the popular WordPress plugin, WP to Twitter [https://wordpress.org/plugins/wp-to-twitter/] by Joe Dolson [http://joedolson.com]. The extension adds Rebrandly.com URL shortening, with an option to use a custom domain, if you have one registered with Rebrandly.
 
 ### Installation
 1. Upload `wpt-rebrandly-url-shortener.php` to your `plugins` directory
