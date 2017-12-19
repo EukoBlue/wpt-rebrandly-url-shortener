@@ -1,7 +1,7 @@
 <?php
 /*
 Plugin Name: WPT Rebrandly URL Shortener
-Plugin URI: https://eukoblue.com/wordpress/plugins/wp-to-twitter/rebrandly/
+Plugin URI: https://github.com/EukoBlue/wpt-rebrandly-url-shortener
 Description: Adds support for Rebrandly as a URL shortener in Joe Dolson's WP to Twitter plugin (https://wordpress.org/plugins/wp-to-twitter/)
 Version: 1.0.1
 Author: Bryson Treece
