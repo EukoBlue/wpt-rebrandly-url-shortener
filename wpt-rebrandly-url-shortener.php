@@ -3,7 +3,7 @@
 Plugin Name: WPT Rebrandly URL Shortener
 Plugin URI: https://eukoblue.com/wordpress/plugins/wp-to-twitter/rebrandly/
 Description: Adds support for Rebrandly as a URL shortener in Joe Dolson's WP to Twitter plugin (https://wordpress.org/plugins/wp-to-twitter/)
-Version: 1.0.0
+Version: 1.0.1
 Author: Bryson Treece
 Author URI: https://eukoblue.com/
 */
@@ -73,20 +73,27 @@ function eb_rebrandly_do_shortening( $shrink, $shortener, $url, $post_title, $po
 		$api_key   = get_option( 'rebrandly_api_key' );
 		$domain_id = get_option( 'rebrandly_domain_id' );
 
-		// wpt_remote_json returns an array decoded from the JSON response
-		$response = wpt_remote_json( 
-			add_query_arg( 
-				 array( 'apikey' 		=> $api_key, 
-						'destination' 	=> urlencode( $url ), 
-						'title' 		=> urlencode( $post_title ), 
-						'domain[id]' 	=> $domain_id ), 
-				'https://api.rebrandly.com/v1/links/new' )
-		);
+		// Check if a link has been stored for this post already
+		// If so, don't call API again
+		if ( get_post_meta( $post_ID, '_wpt_short_url', true ) ) {
+			// Short URL already exists, fetch and return it
+			$shrink = get_post_meta( $post_ID, '_wpt_short_url', true );
+		} else {
+			// wpt_remote_json returns an array decoded from the JSON response
+			$response = wpt_remote_json( 
+				add_query_arg( 
+					 array( 'apikey' 		=> $api_key, 
+							'destination' 	=> urlencode( $url ), 
+							'title' 		=> urlencode( $post_title ), 
+							'domain[id]' 	=> $domain_id ), 
+					'https://api.rebrandly.com/v1/links/new' )
+			);
 
-		// if the response is a string, then this was an error. 
-		// Ignore error and continue with default WPT shortening.
-		if ( !is_string( $response ) ) {
-			$shrink = 'http://'. $response['shortUrl'];			
+			// if the response is a string, then this was an error. 
+			// Ignore error and continue with default WPT shortening.
+			if ( !is_string( $response ) ) {
+				$shrink = 'http://'. $response['shortUrl'];			
+			}
 		}
 	}
 	
